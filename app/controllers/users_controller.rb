@@ -7,10 +7,19 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @users }
+    
+    if params[:eventid]
+        @event= Event.find(params[:eventid])
+        @users2= @event.user
+    end
+    
+    if params[:jsonformfornotin]
+        render :json => @users-@users2
+    else
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render :json => @users }
+      end
     end
   end
 

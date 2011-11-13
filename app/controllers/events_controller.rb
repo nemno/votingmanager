@@ -14,17 +14,35 @@ class EventsController < ApplicationController
       @events= @user.event
       
     end
-    if params[:jsonform]
-      render :json => @events
-  
-    else
-  
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render :json => @events }
-      end
     
+    if params[:withadmin]
+       
+      $query = "user_id = %s" % params[:userid]
+      $temp = " AND admin == 1"
+      $query.concat($temp)
+
+      @currenteventusers = Usersevent.where($query)
+      
     end
+    
+    if params[:adminjsonform]
+      render :json => @currenteventusers
+      
+    else
+    
+    if params[:jsonform]
+        render :json => @events
+
+    else
+
+        respond_to do |format|
+          format.html # index.html.erb
+          format.json { render :json => @events }
+        end
+
+    end
+    end
+        
   end
 
   # GET /events/1
@@ -54,6 +72,18 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
+    
+    puts("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+           @usersevents = Usersevent.new()
+    if params[:userid] and params[:admin]
+      
+
+       @usersevents.user_id = params[:userid]
+       @usersevents.event_id = params[:id]
+       @usersevents.admin = params[:admin]
+       @usersevents.save
+       
+    end
   end
 
   # POST /events
@@ -84,11 +114,9 @@ class EventsController < ApplicationController
   end
   
   
-  #GET /events/1/addusertoevent
+  # PUT /events/1/addusertoevent
   def addusertoevent
-    
-    puts("addusertoevent0000000000000")
-    
+
     if params[:userid] and params[:admin]
       
        @usersevents = Usersevent.new()
@@ -96,7 +124,7 @@ class EventsController < ApplicationController
        @usersevents.event_id = params[:id]
        @usersevents.admin = params[:admin]
        @usersevents.save
-      
+       
     end
     
   end
