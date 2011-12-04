@@ -16,9 +16,15 @@ class UsersController < ApplicationController
     if params[:jsonformfornotin]
         render :json => @users-@users2
     else
+      
+      if params[:jsonform]
+        render :json => @users
+      else
+        
       respond_to do |format|
         format.html # index.html.erb
         format.json { render :json => @users }
+      end
       end
     end
   end

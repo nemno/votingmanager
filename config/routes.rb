@@ -1,5 +1,7 @@
 Klimaserver::Application.routes.draw do
   
+  resources :usersevents
+
   resources :events
 
   resources :users
