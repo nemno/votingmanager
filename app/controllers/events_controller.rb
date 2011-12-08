@@ -18,7 +18,7 @@ class EventsController < ApplicationController
     if params[:withadmin]
        
       $query = "user_id = %s" % params[:userid]
-      $temp = " AND admin == 1"
+      $temp = " AND admin = 1"
       $query.concat($temp)
 
       @currenteventusers = Usersevent.where($query)
