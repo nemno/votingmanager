@@ -205,7 +205,7 @@ class EventsController < ApplicationController
             $temp = " AND user_id = %s" % @current_user.id
             
             $query.concat($temp)
-            $temp = " AND admin == 1"
+            $temp = " AND admin = 1"
             $query.concat($temp)
 
             @currenteventusers = Usersevent.where($query)
