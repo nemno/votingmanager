@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  event_id: MyString
+  user_id: MyString
+  admin: MyString
+
+two:
+  event_id: MyString
+  user_id: MyString
+  admin: MyString
